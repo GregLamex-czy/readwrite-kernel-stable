@@ -81,6 +81,8 @@ typedef struct _MEMORY_REQUEST
 // method definitions
 DWORD PEBLDR_OFFSET = 0x18; // peb.ldr
 DWORD PEBLDR_MEMORYLOADED_OFFSET = 0x10; // peb.ldr.InMemoryOrderModuleList
+
+NTKERNELAPI PVOID PsGetProcessSectionBaseAddress(__in PEPROCESS Process);
 NTSTATUS SPM(ULONG PID, MEMORY_REQUEST* sent) {
 	PEPROCESS Process;
 	KAPC_STATE APC;
