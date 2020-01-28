@@ -82,7 +82,6 @@ typedef struct _MEMORY_REQUEST
 DWORD PEBLDR_OFFSET = 0x18; // peb.ldr
 DWORD PEBLDR_MEMORYLOADED_OFFSET = 0x10; // peb.ldr.InMemoryOrderModuleList
 
-NTKERNELAPI PVOID PsGetProcessSectionBaseAddress(__in PEPROCESS Process);
 NTSTATUS SPM(ULONG PID, MEMORY_REQUEST* sent) {
 	PEPROCESS Process;
 	KAPC_STATE APC;
@@ -133,8 +132,9 @@ NTSTATUS SPM(ULONG PID, MEMORY_REQUEST* sent) {
 		KeUnstackDetachProcess(&APC);
 	}
 
-	ModuleList[0].Base += (UINT64)PsGetProcessSectionBaseAddress(Process);
-
+	// ModuleList[0].Base += (UINT64)PsGetProcessSectionBaseAddress(Process);   ModuleList[0].Base = example.exe
+	//                                                               also       PsGetProcessSectionBaseAddress(Process) = example.exe
+	//									    
 	WCHAR ModuleName[1024];
 
 	RtlZeroMemory(ModuleName, 1024);
